@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 """Personal data project"""
-from re import sub
-from typing import List
+import re
 
 
 def filter_datum(
-        fields: List[str], redaction: str,
+        fields: list[str], redaction: str,
         message: str, separator: str
 ) -> str:
     """a basic data filter
@@ -26,6 +25,6 @@ def filter_datum(
         str: the log message obfuscated:
     """
     for field in fields:
-        message = sub(f'{field}=.*?{separator}',
-                      f'{field}={redaction}{separator}', message)
+        message = re.sub(f'{field}=.*?{separator}',
+                         f'{field}={redaction}{separator}', message)
     return message
