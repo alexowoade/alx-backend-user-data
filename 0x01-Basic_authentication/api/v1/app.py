@@ -21,6 +21,8 @@ if getenv('AUTH_TYPE') == "auth":
 
 @app.before_request
 def filter_request():
+    """filter request
+    """
     if auth is None:
         return
 
