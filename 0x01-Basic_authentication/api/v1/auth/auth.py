@@ -16,9 +16,18 @@ class Auth:
             excluded_paths (List[str]): _description_
 
         Returns:
-            bool: False
+            bool:
         """
-        return False
+        if path is None or excluded_paths is None or not excluded_paths:
+            return True
+
+        if path[-1] != '/':
+            path += '/'
+
+        if path in excluded_paths:
+            return False
+
+        return True
 
     def authorization_header(self, request=None) -> str:
         """handle authorization header
@@ -33,6 +42,10 @@ class Auth:
         return None
 
     def current_user(self, request=None) -> TypeVar('User'):
-        """handles current_user"""
+        """handle current user
+
+        Returns:
+            TypeVar: User
+        """
         request = Flask(__name__)
         return None
