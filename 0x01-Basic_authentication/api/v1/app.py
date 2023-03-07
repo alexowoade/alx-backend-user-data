@@ -24,6 +24,20 @@ def unauthorized(error) -> str:
     return jsonify({'error': 'Unauthorized'}), 401
 
 
+@app.errorhandler(403)
+def forbidden(error) -> str:
+    """handles request where user is authenticated
+    but not allowed to access a resource
+
+    Args:
+        error (error): 403 forbidden
+
+    Returns:
+        str: status message and code
+    """
+    return jsonify({"error": "Forbidden"}), 403
+
+
 @app.errorhandler(404)
 def not_found(error) -> str:
     """ Not found handler
