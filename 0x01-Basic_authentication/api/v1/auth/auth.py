@@ -38,8 +38,10 @@ class Auth:
         Returns:
             str: _description_
         """
-        request = Flask(__name__)
-        return None
+        if request is None:
+            return None
+
+        return request.headers.get('Authorization')
 
     def current_user(self, request=None) -> TypeVar('User'):
         """handle current user
