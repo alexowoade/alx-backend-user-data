@@ -12,7 +12,8 @@ class BasicAuth(Auth):
         Auth (class): Parent authentication class
     """
 
-    def extract_base64_authorization_header(self, authorization_header: str) -> str:
+    def extract_base64_authorization_header(self,
+                                            authorization_header: str) -> str:
         """returns the Base64 part of the Authorization
         header for a Basic Authentication
 
@@ -26,4 +27,4 @@ class BasicAuth(Auth):
                 and authorization_header.startswith('Basic ')):
             return None
 
-        return authorization_header.split(' ', 1)[1]
+        return authorization_header[6:]
