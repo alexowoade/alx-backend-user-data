@@ -7,7 +7,7 @@ from os import getenv
 
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
-def handle_auth_routes():
+def login():
     """handle auth_routes
 
     Returns:
