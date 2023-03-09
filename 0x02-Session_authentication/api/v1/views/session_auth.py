@@ -38,4 +38,6 @@ def login():
 
     session_name = getenv('SESSION_NAME')
 
-    return user_dict.set_cookie(session_name, session_id)
+    user_dict.set_cookie(session_name, session_id)
+
+    return user_dict
