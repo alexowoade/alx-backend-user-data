@@ -8,6 +8,11 @@ from os import getenv
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def handle_auth_routes():
+    """handle auth_routes
+
+    Returns:
+        _type_: _description_
+    """
     email = request.form.get('email')
     if email is None:
         return jsonify({"error": "email missing"}), 400
