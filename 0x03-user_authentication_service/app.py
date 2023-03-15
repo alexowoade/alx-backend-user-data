@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 '''basic flask app'''
 from typing import Tuple
-from flask import Flask, jsonify
+from flask import Flask, jsonify, abort
 from auth import Auth
 
 app = Flask(__name__)
@@ -24,20 +24,19 @@ def users() -> Tuple[str, int]:
     Returns:
         Tuple[str, int]: response string and status code
     '''
-    email = request.form.get('email')
-    password = request.form.get('password')
+    try:
+        email = request.form['email']
+        password = request.form['password']
+    except KeyError:
+        abort(400)
 
     try:
-        new_user = AUTH.register_user(email, password)
-        if new_user is not None:
-            return jsonify({
-                "email": f"{email}",
-                "message": "user created"
-            }), 200
-    except Exception:
-        return jsonify({
-            "message": "email already registered"
-        }), 400
+        user = AUTH.register_user(email, password)
+    except ValueError:
+        return jsonify({"message": "email already registered"}), 400
+
+    msg = {"email": email, "message": "user created"}
+    return jsonify(msg)
 
 
 if __name__ == "__main__":
