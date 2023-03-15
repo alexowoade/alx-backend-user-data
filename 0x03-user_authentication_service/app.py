@@ -54,10 +54,18 @@ def login() -> str:
 
 @app.route('/sessions', methods=['DELETE'], strict_slashes=False)
 def logout() -> Union[abort, redirect]:
+    """logout basically means to set the session_id to None
+
+    Returns:
+        Union[abort, redirect]: 403 if session_id or user is None
+        else redirect to '/'
+    """
     session_id = request.cookies.get('session_id')
     user = AUTH.get_user_from_session_id(session_id)
+
     if session_id is None or user is None:
         abort(403)
+
     AUTH.destroy_session(user.id)
     return redirect('/')
 
