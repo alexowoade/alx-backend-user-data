@@ -103,10 +103,10 @@ def update_password() -> Tuple[str, int]:
     Returns:
         str: JSON payload containing email and success message
     """
+    reset_token = request.form.get('reset_token')
+    password = request.form.get('password')
+    email = request.form.get('email')
     try:
-        reset_token = request.form.get('reset_token')
-        password = request.form.get('password')
-        email = request.form.get('email')
         AUTH.update_password(reset_token, password)
     except Exception:
         abort(403)
