@@ -4,6 +4,7 @@ from bcrypt import hashpw, gensalt
 from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import InvalidRequestError
 from bcrypt import checkpw
 from uuid import uuid4
 from typing import Union
@@ -103,3 +104,18 @@ class Auth:
         '''
         self._db.update_user(user_id, session_id=None)
         return None
+
+    def get_reset_password_token(self, email: str) -> str:
+        '''generate token for password
+        Args:
+            email (str): user email to send token
+        Returns:
+            str: generated token
+        '''
+        try:
+            user = self._db.find_user_by(email=email)
+        except (NoResultFound, InvalidRequestError):
+            raise ValueError
+
+        user.reset_token = _generate_uuid()
+        return user.reset_token
