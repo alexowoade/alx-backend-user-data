@@ -4,9 +4,8 @@ from typing import Tuple
 from flask import Flask, jsonify
 from auth import Auth
 
-app = Flask(__name__)
-
 AUTH = Auth()
+app = Flask(__name__)
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
