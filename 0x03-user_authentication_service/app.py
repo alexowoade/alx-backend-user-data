@@ -21,9 +21,10 @@ def index() -> str:
 @app.route('/users', methods=['POST'])
 def register_user() -> Tuple[str, int]:
     """Registers a new user if it does not exist before"""
+    email = request.form.get('email')
+    password = request.form.get('password')
+
     try:
-        email = request.form.get('email')
-        password = request.form.get('password')
         user = AUTH.register_user(email, password)
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
