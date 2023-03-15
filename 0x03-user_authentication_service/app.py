@@ -97,23 +97,18 @@ def get_reset_password_token() -> str:
 
 
 @app.route('/reset_password', methods=['PUT'], strict_slashes=False)
-def update_password() -> Tuple[str, int]:
-    """update password
-
-    Returns:
-        str: JSON payload containing email and success message
-    """
+def update_password() -> str:
+    """form data fields: email, reset_token, new_password - Update the password
+    If the token is invalid, catch the exception and respond with a 403 code.
+    If the token is valid, respond with a 200 HTTP code and JSON payload
+    containing user email and message 'password updated'"""
+    email = request.form.get('email')
     reset_token = request.form.get('reset_token')
     new_password = request.form.get('new_password')
-    email = request.form.get('email')
     try:
         AUTH.update_password(reset_token, new_password)
     except Exception:
         abort(403)
-
-    if not email:
-        abort(400)
-
     return jsonify({"email": email, "message": "Password updated"}), 200
 
 
