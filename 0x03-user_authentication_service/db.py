@@ -48,6 +48,15 @@ class DB:
         return user
 
     def find_user_by(self, **kwargs) -> User:
+        '''find user by specified filter queries
+
+        Raises:
+            InvalidRequestError: when wrong query arguments are passed
+            NoResultFound: when no result is found
+
+        Returns:
+            User: The found user object
+        '''
         if not kwargs:
             raise InvalidRequestError
 
