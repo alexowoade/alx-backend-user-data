@@ -19,7 +19,7 @@ def index() -> str:
 
 
 @app.route('/users', methods=[POST], strict_slashes=False)
-def users() -> Tuple[str, int]:
+def users() -> str:
     '''Registers new users
     Returns:
         Tuple[str, int]: response string and status code
