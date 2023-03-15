@@ -18,14 +18,11 @@ def index() -> str:
     return jsonify({"message": "Bienvenue"})
 
 
-@app.route('/users', methods=[POST], strict_slashes=False)
+@app.route('/users', methods=['POST'], strict_slashes=False)
 def users() -> str:
-    '''Registers new users
-    Returns:
-        Tuple[str, int]: response string and status code
-    '''
-    email = request.form.get('email')
-    password = request.form.get('password')
+    """this method registers new users -> POST /users"""
+    email = request.form.get("email")
+    password = request.form.get("password")
 
     try:
         new_user = AUTH.register_user(email, password)
