@@ -97,7 +97,7 @@ def get_reset_password_token() -> str:
 
 
 @app.route('/reset_password', methods=['PUT'], strict_slashes=False)
-def update_password() -> str:
+def update_password() -> Tuple[str, int]:
     """update password
 
     Returns:
@@ -110,6 +110,9 @@ def update_password() -> str:
         AUTH.update_password(reset_token, new_password)
     except Exception:
         abort(403)
+
+    if not email:
+        abort(400)
 
     return jsonify({"email": email, "message": "Password updated"}), 200
 
