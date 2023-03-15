@@ -4,8 +4,9 @@ from typing import Tuple
 from flask import Flask, jsonify
 from auth import Auth
 
-AUTH = Auth()
 app = Flask(__name__)
+
+AUTH = Auth()
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
@@ -18,10 +19,13 @@ def index() -> str:
 
 
 @app.route('/users', methods=['POST'], strict_slashes=False)
-def users() -> str:
-    """this method registers new users -> POST /users"""
-    email = request.form.get("email")
-    password = request.form.get("password")
+def users() -> Tuple[str, int]:
+    '''Registers new users
+    Returns:
+        Tuple[str, int]: response string and status code
+    '''
+    email = request.form.get('email')
+    password = request.form.get('password')
 
     try:
         new_user = AUTH.register_user(email, password)
