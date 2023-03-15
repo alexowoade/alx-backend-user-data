@@ -20,6 +20,10 @@ def index() -> str:
 
 @app.route('/users', methods=[POST], strict_slashes=False)
 def users() -> Tuple[str, int]:
+    '''Registers new users
+    Returns:
+        Tuple[str, int]: response string and status code
+    '''
     email = request.form.get('email')
     password = request.form.get('password')
 
