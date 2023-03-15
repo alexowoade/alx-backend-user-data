@@ -18,12 +18,9 @@ def index() -> str:
     return jsonify({"message": "Bienvenue"})
 
 
-@app.route('/users', methods=['POST'], strict_slashes=False)
-def users() -> Tuple[str, int]:
-    '''Registers new users
-    Returns:
-        Tuple[str, int]: response string and status code
-    '''
+@app.route('/users', methods=['POST'])
+def register_user() -> str:
+    """Registers a new user if it does not exist before"""
     try:
         email = request.form['email']
         password = request.form['password']
