@@ -103,9 +103,13 @@ def update_password() -> Tuple[str, int]:
     Returns:
         str: JSON payload containing email and success message
     """
-    reset_token = request.form.get('reset_token')
-    new_password = request.form.get('new_password')
-    email = request.form.get('email')
+    try:
+        email = request.form['email']
+        reset_token = request.form['reset_token']
+        new_password = request.form['new_password']
+    except KeyError:
+        abort(400)
+
     try:
         AUTH.update_password(reset_token, new_password)
     except Exception:
